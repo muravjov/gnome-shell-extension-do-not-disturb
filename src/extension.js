@@ -33,6 +33,19 @@ function enable() {
     this._settings.onHideNotificationDotChanged(() => _sync());
     this._settings.onMuteSoundChanged(() => _sync());
 
+    // Turn on at time
+    // var startTime = new Date();
+    // startTime.setHours(12);
+    // startTime.setMinutes(45);
+    // startTime.setSeconds(0, 0);
+    //
+    // var millis = startTime - Date.now();
+    //
+    // Timing.setTimeout(function(){
+    //   this._settings.setDoNotDisturb(true);
+    // }.bind(this), millis);
+
+
     this._sync();
 }
 
@@ -61,10 +74,11 @@ function _sync(){
   let hideDot = this._settings.shouldHideNotificationDot();
   let muteSounds = this._settings.shouldMuteSound();
 
+  // Turn off after timeout
   if(enabled){
-    this.timeout_id = Timing.setTimeout(function(){
-      this._settings.setDoNotDisturb(false);
-    }.bind(this), 5000);
+    // this.timeout_id = Timing.setTimeout(function(){
+    //   this._settings.setDoNotDisturb(false);
+    // }.bind(this), 5000);
   } else {
     Timing.clearTimeout(this.timeout_id);
   }
