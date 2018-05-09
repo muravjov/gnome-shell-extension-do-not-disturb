@@ -34,16 +34,11 @@ function enable() {
     this._settings.onMuteSoundChanged(() => _sync());
 
     // Turn on at time
-    // var startTime = new Date();
-    // startTime.setHours(12);
-    // startTime.setMinutes(45);
-    // startTime.setSeconds(0, 0);
-    //
-    // var millis = startTime - Date.now();
-    //
-    // Timing.setTimeout(function(){
-    //   this._settings.setDoNotDisturb(true);
-    // }.bind(this), millis);
+    var alarm = new Timing.Alarm(function(){
+      this._settings.setDoNotDisturb(true);
+    }.bind(this), new Timing.Time(21, 00, 00), true);
+
+    alarm.start();
 
 
     this._sync();
