@@ -1,6 +1,8 @@
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Settings = Me.imports.settings; 
+const Settings = Me.imports.settings;
 const Widget = Me.imports.widgets;
+const Main = imports.ui.main;
+const Timing = Me.imports.timing;
 
 /**
  * Called when the extension is loaded.
@@ -58,6 +60,15 @@ function _sync(){
   let showIcon = this._settings.shouldShowIcon();
   let hideDot = this._settings.shouldHideNotificationDot();
   let muteSounds = this._settings.shouldMuteSound();
+
+  if(enabled){
+    this.timeout_id = Timing.setTimeout(function(){
+      this._settings.setDoNotDisturb(false);
+    }.bind(this), 5000);
+  } else {
+    Timing.clearTimeout(this.timeout_id);
+  }
+
   if(enabled && showIcon){
       this._enabledIcon.hide();
       this._enabledIcon.show();
